@@ -1,9 +1,12 @@
 package test.java.it.sevenbits.code_formatter;
 
-import main.java.it.sevenbits.code_formatter.CodeFormatter;
-import main.java.it.sevenbits.code_formatter.StringInStream;
-import main.java.it.sevenbits.code_formatter.StringOutStream;
+import main.java.it.sevenbits.code_formatter.*;
 import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -12,21 +15,51 @@ import static org.junit.Assert.assertTrue;
 public class formatTests {
 
     @Test
-    public void braceToNewString() {
-        String str = new String("{ abc }");
-        //String res = new String("{\n abc \n}");
+    public void twoEqualStrings() {
+        String in = new String("{ abc }");
         String res = new String("{ abc }");
-        //format(str, res);
-        assertTrue(str.equals(res));
+        assertTrue(res.equals(in));
+    }
+
+    @Test
+    public void twoEqualStreams() throws StreamException, FileNotFoundException {
+        InStream in = new StringInStream("a");
+        OutStream out = new StringOutStream("a");
+        //assertTrue(out.equals(in));
+        assertEquals(in, out);
     }
 
     /*@Test
-    void isNotEqualBrace() {
-        String str = new String("{ abc }}");
-        String res = new String();
+    public void twoEqualStreams() throws StreamException {
+        //StringInStream in = new StringInStream("{ a }");
+        StringInStream in = new StringInStream("a");
+        StringOutStream out = new StringOutStream();
+        //out.writeSymbol('{');
+        //out.writeSymbol(' ');
+        out.writeSymbol('a');
+        //out.writeSymbol(' ');
+        //out.writeSymbol('}');
+        assertTrue(out.equals(in));
+    }*/
+
+    /*@Test
+    public void braceToNewString() throws StreamException, FormatterException, IOException {
+        StringInStream in = new StringInStream("{ abc }");
+        String res = new String("{\n abc \n }");
+        StringOutStream out = new StringOutStream();
+        CodeFormatter formatter = new CodeFormatter();
+        formatter.format(in, out);
+        assertTrue(res.equals(out));
+    }*/
+
+    /*@Test
+    public void isNotEqualBrace() throws IOException, StreamException {
+        StringInStream in = new StringInStream("{ abc }}");
+        StringOutStream out = new StringOutStream();
         boolean exc = false;
         try {
-            //format(str, res);
+            CodeFormatter formatter = new CodeFormatter();
+            formatter.format(in, out);
         }
         catch (FormatterException e) {
             exc = true;
@@ -34,14 +67,15 @@ public class formatTests {
         assertTrue(exc);
     }*/
 
-    @Test
-    public void spaceBrace() {
+    /*@Test
+    public void spaceBrace() throws StreamException, FormatterException, IOException {
         StringInStream in = new StringInStream("{a");
-        //String res = new String("{\n abc \n}");
+        String res = new String("{\na");
         StringOutStream out = new StringOutStream();
-        //format(in, out);
-        assertTrue(in.equals(out));
-    }
+        CodeFormatter formatter = new CodeFormatter();
+        formatter.format(in, out);
+        assertTrue(res.equals(out));
+    }*/
 
     /*@Test
     public void spaceParenthesis() {

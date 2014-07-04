@@ -10,11 +10,11 @@ public interface OutStream {
      * @throws StreamException
      * @throws main.java.it.sevenbits.code_formatter.StreamException
      */
-    void writeSymbol(int c) throws StreamException, main.java.it.sevenbits.code_formatter.StreamException;
+    void writeSymbol(int c) throws StreamException;
 
     /**
      * @throws StreamException
      * @throws main.java.it.sevenbits.code_formatter.StreamException
      */
-    void close() throws StreamException, main.java.it.sevenbits.code_formatter.StreamException;
+    void close() throws StreamException;
 }

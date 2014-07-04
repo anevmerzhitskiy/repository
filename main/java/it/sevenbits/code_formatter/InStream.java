@@ -8,9 +8,8 @@ public interface InStream {
     /**
      * @return current symbol
      * @throws StreamException
-     * @throws IOException
      */
-    int getSymbol() throws StreamException, IOException;
+    int getSymbol() throws StreamException;
 
     /**
      * @throws StreamException
@@ -19,7 +18,6 @@ public interface InStream {
 
     /**
      * @return true, if end of file
-     * @throws IOException
      */
-    boolean isEnd() throws IOException;
+    boolean isEnd() throws StreamException;
 }

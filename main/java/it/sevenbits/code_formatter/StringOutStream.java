@@ -11,15 +11,15 @@ public class StringOutStream implements OutStream {
     private StringOutStream out;
     private int index;
 
-    /*StringOutStream (String str) throws FileNotFoundException {
+    public StringOutStream(String str) throws FileNotFoundException {
         try {
-            PrintWriter printWriter = new PrintWriter(fileName);
+            PrintWriter printWriter = new PrintWriter(str);
         }
         catch (FileNotFoundException e) {
             Logger LOG=Logger.getLogger(FileOutStream.class);
             LOG.fatal("Create stream error");
         }
-    }*/
+    }
     public void writeSymbol(int c) throws StreamException {
 
         out.writeSymbol(c);

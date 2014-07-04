@@ -2,8 +2,6 @@ package main.java.it.sevenbits.code_formatter;
 
 
 import org.apache.log4j.Logger;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {

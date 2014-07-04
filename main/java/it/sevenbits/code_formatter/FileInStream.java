@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 
-public class FileInStream implements InStream{
+public class FileInStream implements InStream {
 
     private FileInputStream in;
     private File file;
@@ -30,7 +30,7 @@ public class FileInStream implements InStream{
 
 
     public void close() throws StreamException {
-
+        //in.close();
     }
 
 

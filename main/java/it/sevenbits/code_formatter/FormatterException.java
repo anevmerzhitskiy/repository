@@ -5,7 +5,9 @@ package main.java.it.sevenbits.code_formatter;
  */
 public class FormatterException extends Exception {
 
-    FormatterException() {};
-    //FormatterException(String message, Trowable cause){}
+    FormatterException() {}
+    FormatterException(String message) {}
+    //FormatterException(String message, Throwable cause){}
+    FormatterException(StreamException e) {}
 
 }

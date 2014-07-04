@@ -8,7 +8,7 @@ public class StringInStream implements InStream {
     private int index;
     private String code;
 
-    StringInStream(String str) {
+    public StringInStream(String str) {
         code = str;
         index = 0;
     }

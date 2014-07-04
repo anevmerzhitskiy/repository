@@ -1,10 +1,9 @@
 package test.java.it.sevenbits.code_formatter;
 
-import main.java.it.sevenbits.code_formatter.FormatterException;
+import main.java.it.sevenbits.code_formatter.CodeFormatter;
+import main.java.it.sevenbits.code_formatter.StringInStream;
+import main.java.it.sevenbits.code_formatter.StringOutStream;
 import org.junit.Test;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class formatTests {
 
     @Test
-    void braceToNewString() {
+    public void braceToNewString() {
         String str = new String("{ abc }");
         //String res = new String("{\n abc \n}");
         String res = new String("{ abc }");
@@ -21,7 +20,7 @@ public class formatTests {
         assertTrue(str.equals(res));
     }
 
-    @Test
+    /*@Test
     void isNotEqualBrace() {
         String str = new String("{ abc }}");
         String res = new String();
@@ -33,23 +32,23 @@ public class formatTests {
             exc = true;
         }
         assertTrue(exc);
-    }
+    }*/
 
     @Test
-    void spaceBrace() {
-        String str = new String("{a");
+    public void spaceBrace() {
+        StringInStream in = new StringInStream("{a");
         //String res = new String("{\n abc \n}");
-        String res = new String("{    a");
-        //format(str, res);
-        assertTrue(str.equals(res));
+        StringOutStream out = new StringOutStream();
+        //format(in, out);
+        assertTrue(in.equals(out));
     }
 
-    @Test
-    void spaceParenthesis() {
+    /*@Test
+    public void spaceParenthesis() {
         String str = new String("(a)");
         //String res = new String("{\n abc \n}");
         String res = new String("( a )");
         //format(str, res);
         assertTrue(str.equals(res));
-    }
+    }*/
 }

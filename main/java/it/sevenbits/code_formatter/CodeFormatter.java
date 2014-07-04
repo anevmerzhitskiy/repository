@@ -14,7 +14,7 @@ public class CodeFormatter {
      * @throws IOException
      * @throws StreamException
      */
-    void format(InStream in, OutStream out) throws FormatterException, IOException, StreamException {
+    public void format(InStream in, OutStream out) throws FormatterException, IOException, StreamException {
 
         int c;
         int braceCount = 0;

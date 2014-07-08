@@ -9,15 +9,14 @@ public class StringInStream implements InStream {
     private String code;
 
     public StringInStream(String str) {
-        code = new String(str);
+        code = str;
         index = 0;
     }
 
-    public int getSymbol() throws StreamException {
-            int result = code.charAt(index);
+    public char getSymbol() throws StreamException {
+            char result = code.charAt(index);
             index++;
             return result;
-
     }
 
     public void close() throws StreamException {
@@ -25,6 +24,6 @@ public class StringInStream implements InStream {
     }
 
     public boolean isEnd() {
-        return code.endsWith("");
+        return index == code.length();
     }
 }

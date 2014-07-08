@@ -2,65 +2,81 @@ package main.java.it.sevenbits.code_formatter;
 
 public class CodeFormatter {
 
+    private int braceLevel = 0;
+
     public CodeFormatter() {}
 
+    private void increaseBrace() {
+        braceLevel++;
+    }
+
+    private void reduceBrace() {
+        braceLevel--;
+    }
+
+    private void shiftNextString(OutStream out, FormatOptions formatOptions) throws StreamException {
+        try {
+            out.writeSymbol(formatOptions.getSymbolEndOfString());
+            for (int i = 0; i < formatOptions.getIndent() * braceLevel; i++) {
+                out.writeSymbol(formatOptions.getTabSymbol());
+            }
+        }
+        catch (StreamException e) {
+            throw e;
+        }
+    }
+
     /**
-     *
      * @param in symbol input stream
      * @param out symbol output stream
      * @throws FormatterException
      */
-    public void format(InStream in, OutStream out) throws FormatterException {
+    public void format(InStream in, OutStream out, FormatOptions formatOptions) throws FormatterException {
 
-        int c;
+        boolean isNewString = false;
+        boolean isAloneSpaceButton = false;
+        char c;
         int braceCount = 0;
         int parenthesisCount = 0;
         char space = ' ';
 
         try {
-            while (in.isEnd()) {
+            while (!in.isEnd()) {
                 c = in.getSymbol();
                 switch (c) {
                     case ';': {
                         out.writeSymbol(c);
-                        out.writeSymbol('\n');
+                        isNewString = true;
+                        shiftNextString(out, formatOptions);
                         break;
                     }
                     case '{': {
                         out.writeSymbol(c);
-                        out.writeSymbol('\n');
-                        braceCount++;
-                        for (int i = 0; i < braceCount; i++) {
-                            out.writeSymbol('\t');
-                        }
+                        isNewString = true;
+                        increaseBrace();
+                        shiftNextString(out, formatOptions);
                         break;
                     }
                     case '}': {
-                        if (braceCount > 0) {
-                            out.writeSymbol(c);
-                            out.writeSymbol('\n');
-                            braceCount--;
-                        } else {
-                            throw new FormatterException();
-                        }
-                        break;
-                    }
-                    case '(': {
-                        out.writeSymbol(space);
+                        isNewString = true;
+                        reduceBrace();
+                        // add try-catch
+                        shiftNextString(out, formatOptions);
                         out.writeSymbol(c);
-                        out.writeSymbol(space);
-                        parenthesisCount++;
+                    }
+                    case ' ': {
+                        if (!isNewString) {
+                            if (isAloneSpaceButton) {
+                                isAloneSpaceButton = false;
+                                out.writeSymbol(c);
+                            }
+                        }
                         break;
                     }
-                    case ')': {
-                        if (parenthesisCount > 0) {
-                            out.writeSymbol(space);
-                            out.writeSymbol(c);
-                            out.writeSymbol(space);
-                            parenthesisCount--;
-                        } else {
-                            throw new FormatterException();
-                        }
+                    default: {
+                        isNewString = false;
+                        isAloneSpaceButton = true;
+                        out.writeSymbol(c);
                         break;
                     }
                 }

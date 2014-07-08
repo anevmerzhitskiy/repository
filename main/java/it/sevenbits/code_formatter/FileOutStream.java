@@ -22,7 +22,7 @@ public class FileOutStream implements OutStream {
         }
     }
 
-    public void writeSymbol(int c) throws StreamException {
+    public void writeSymbol(char c) throws StreamException {
         printWriter.print(c);
     }
 

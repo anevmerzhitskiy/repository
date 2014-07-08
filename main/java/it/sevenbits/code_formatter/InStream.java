@@ -9,7 +9,7 @@ public interface InStream {
      * @return current symbol
      * @throws StreamException
      */
-    int getSymbol() throws StreamException;
+    char getSymbol() throws StreamException;
 
     /**
      * @throws StreamException

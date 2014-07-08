@@ -1,9 +1,9 @@
 package test.java.it.sevenbits.code_formatter;
 
+import junit.framework.Assert;
 import main.java.it.sevenbits.code_formatter.*;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -22,67 +22,48 @@ public class formatTests {
     }
 
     @Test
-    public void twoEqualStreams() throws StreamException, FileNotFoundException {
-        InStream in = new StringInStream("a");
-        OutStream out = new StringOutStream("a");
-        //assertTrue(out.equals(in));
-        assertEquals(in, out);
+    public void lineFeed() throws StreamException, FormatterException {
+        InStream in = new StringInStream("a;");
+        StringOutStream out = new StringOutStream("");
+        String res = new String("a;\n");
+        CodeFormatter formatter = new CodeFormatter();
+        FormatOptions formatOpt = new FormatOptions();
+        formatter.format(in, out, formatOpt);
+        String temp = out.getString();
+        assertTrue(res.equals(temp));
     }
 
-    /*@Test
-    public void twoEqualStreams() throws StreamException {
-        //StringInStream in = new StringInStream("{ a }");
-        StringInStream in = new StringInStream("a");
-        StringOutStream out = new StringOutStream();
-        //out.writeSymbol('{');
-        //out.writeSymbol(' ');
-        out.writeSymbol('a');
-        //out.writeSymbol(' ');
-        //out.writeSymbol('}');
-        assertTrue(out.equals(in));
-    }*/
-
-    /*@Test
-    public void braceToNewString() throws StreamException, FormatterException, IOException {
-        StringInStream in = new StringInStream("{ abc }");
-        String res = new String("{\n abc \n }");
+    @Test
+    public void isTab() throws StreamException, FormatterException, IOException {
+        InStream in = new StringInStream("{a}");
+        String res = new String("{\n    a\n}");
         StringOutStream out = new StringOutStream();
         CodeFormatter formatter = new CodeFormatter();
-        formatter.format(in, out);
-        assertTrue(res.equals(out));
-    }*/
+        FormatOptions formatOpt = new FormatOptions();
+        formatter.format(in, out, formatOpt);
+        String temp = out.getString();
+        assertTrue(res.equals(temp));
+    }
 
-    /*@Test
-    public void isNotEqualBrace() throws IOException, StreamException {
-        StringInStream in = new StringInStream("{ abc }}");
-        StringOutStream out = new StringOutStream();
-        boolean exc = false;
-        try {
-            CodeFormatter formatter = new CodeFormatter();
-            formatter.format(in, out);
-        }
-        catch (FormatterException e) {
-            exc = true;
-        }
-        assertTrue(exc);
-    }*/
-
-    /*@Test
-    public void spaceBrace() throws StreamException, FormatterException, IOException {
-        StringInStream in = new StringInStream("{a");
-        String res = new String("{\na");
+    public void tabAndLineFeed() throws StreamException, FormatterException, IOException {
+        InStream in = new StringInStream("{a;}");
+        String res = new String("{\n    a;\n}");
         StringOutStream out = new StringOutStream();
         CodeFormatter formatter = new CodeFormatter();
-        formatter.format(in, out);
-        assertTrue(res.equals(out));
-    }*/
+        FormatOptions formatOpt = new FormatOptions();
+        formatter.format(in, out, formatOpt);
+        String temp = out.getString();
+        assertTrue(res.equals(temp));
+    }
 
-    /*@Test
-    public void spaceParenthesis() {
-        String str = new String("(a)");
-        //String res = new String("{\n abc \n}");
-        String res = new String("( a )");
-        //format(str, res);
-        assertTrue(str.equals(res));
-    }*/
+    public void deleteSpace() throws StreamException, FormatterException, IOException {
+        InStream in = new StringInStream("{  a;}");
+        String res = new String("{\n    a;\n}");
+        StringOutStream out = new StringOutStream();
+        CodeFormatter formatter = new CodeFormatter();
+        FormatOptions formatOpt = new FormatOptions();
+        formatter.format(in, out, formatOpt);
+        String temp = out.getString();
+        assertTrue(res.equals(temp));
+    }
 }

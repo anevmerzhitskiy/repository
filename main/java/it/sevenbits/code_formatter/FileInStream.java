@@ -23,9 +23,17 @@ public class FileInStream implements InStream {
         }
     }
 
-    public int getSymbol() throws StreamException, IOException {
+    public char getSymbol() throws StreamException {
 
-        return in.read();
+        char temp = 0;
+        try {
+            temp = (char) in.read();
+        }
+        catch (IOException e)
+        {
+            throw new StreamException();
+        }
+        return temp;
     }
 
 

@@ -13,7 +13,8 @@ public class Main {
         CodeFormatter formatter = new CodeFormatter();
         OutStream out = new FileOutStream(fileOut);
         try {
-            formatter.format(in, out);
+            FormatOptions formatOpt = new FormatOptions();
+            formatter.format(in, out, formatOpt);
         }
         catch (FormatterException e) {
             Logger LOG=Logger.getLogger(Main.class);
